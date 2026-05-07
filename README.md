@@ -3,9 +3,8 @@
 **Live page → https://kaankacar.github.io/yardstick-demo/**
 *(testnet, contract `CAM3JG…RGDEF4B`, RPC `soroban-testnet.stellar.org`)*
 
-A minimal, runnable Stellar Yardstick (Protocol 26) demo built for the
-Stellar Developers Meeting livestream. Combines two new builder
-capabilities in one atomic flow:
+A minimal, runnable Stellar Yardstick (Protocol 26) demo. Combines two
+new builder capabilities in one atomic flow:
 
 - **CAP-73** — `StellarAssetClient::trust()` lets a Soroban contract
   create classic Stellar trustlines directly. Combined with the native
@@ -20,7 +19,7 @@ display-only pre-Yardstick version, so viewers can read what changed.
 
 ## Live demo, three transactions
 
-Hashes from the most recent rehearsal on testnet (`CAM3JG...`):
+Hashes from a recent run on testnet (`CAM3JG...`):
 
 | Step | What | Tx |
 |---|---|---|
@@ -82,26 +81,25 @@ stellar contract invoke --id "$CONTRACT_ID" --source-account yardstick-user --ne
   -- swap --user "$USER_PK" --sell_yard true --in_amount 50000000 --min_out 0
 ```
 
-## Livestream talk-track
+## Demo walkthrough
 
-≈3 minutes:
+What the page shows, in order:
 
-1. **Hook (15s)**. Open the page. *"Two months ago, onboarding a new user
-   into a Stellar dApp meant three classic transactions, off-chain
-   choreography, and a window where things could go sideways. As of
-   today, on mainnet, it's one contract call."*
-2. **Read the diff (45s)**. Toggle Pre-Yardstick → Post-Yardstick. Point
-   at the `trust()` calls and the unchecked → `checked_mul` shift.
-   Mention CAPs 73 + 82.
-3. **Click Onboard (45s)**. Show the tx hash on Stellar Expert. Point at
-   the *single* tx that minted both trustlines + funded both balances.
-4. **Click Swap (30s)**. Quick "money goes through" moment.
-5. **Click "Try to break it" (30s)**. The kill shot. *"Pre-Yardstick this
-   would have trapped the entire transaction — your user's tx is dead,
-   your dApp's UI is in an inconsistent state, no recovery. Post-Yardstick,
-   it's a typed error you handle however you want."*
-6. **Close (15s)**. Point at the GitHub link, mention testnet has been on
-   Yardstick since 2026-04-16, point builders at the CAP specs.
+1. **The diff.** Toggle between *Pre-Yardstick* and *Post-Yardstick* on
+   the same Rust source. The `trust()` calls and the unchecked-to-checked
+   math shift are the parts that changed.
+2. **Onboard.** Single contract call → one tx hash on Stellar Expert
+   that mints both trustlines and both starter balances atomically.
+   Pre-Yardstick this required three separate classic operations.
+3. **Swap.** Constant-product YARD ↔ DEMOUSD swap, priced via
+   `U256::checked_mul`.
+4. **Try to break it.** Feeds the contract inputs that overflow U256.
+   Post-Yardstick the contract returns `SwapError::Overflow` and
+   the rest of the dApp keeps working. Pre-Yardstick the same call
+   would have trapped the entire transaction with no recovery path.
+
+Testnet has been on Yardstick since 2026-04-16 and mainnet since
+2026-05-06, so anything you build on top of this works on both today.
 
 ## Verified APIs (soroban-sdk 26.0.0)
 
