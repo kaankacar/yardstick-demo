@@ -1,5 +1,8 @@
 # Yardstick "So What" Demo
 
+**Live page → https://kaankacar.github.io/yardstick-demo/**
+*(testnet, contract `CAM3JG…RGDEF4B`, RPC `soroban-testnet.stellar.org`)*
+
 A minimal, runnable Stellar Yardstick (Protocol 26) demo built for the
 Stellar Developers Meeting livestream. Combines two new builder
 capabilities in one atomic flow:
