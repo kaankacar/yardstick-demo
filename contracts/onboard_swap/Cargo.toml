@@ -1,0 +1,22 @@
+[package]
+name = "onboard_swap"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "Yardstick (Protocol 26) demo: atomic onboarding via SAC G-account creation (CAP-73) + safe AMM math via U256 checked ops (CAP-82)"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = []
+# Display-only pre-Yardstick contract. Compiles to prove the source is real Rust,
+# but is never deployed; it exists so the demo page can render it side-by-side.
+legacy = []
+testutils = ["soroban-sdk/testutils"]
+
+[dependencies]
+soroban-sdk = { version = "26" }
+
+[dev-dependencies]
+soroban-sdk = { version = "26", features = ["testutils"] }

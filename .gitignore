@@ -1,0 +1,24 @@
+# Rust / Soroban
+/target
+**/*.rs.bk
+
+# Node / Next
+web/node_modules
+web/.next
+web/out
+web/.turbo
+
+# Logs / OS
+*.log
+.DS_Store
+Thumbs.db
+
+# Editor / agent
+.idea
+.vscode
+*.swp
+.claude
+
+# Sensitive — none of the demo's `.env.local` values are secrets (they're all
+# public testnet contract IDs and G-addresses) so it IS committed. If you fork
+# this and add real secrets, gitignore them here first.
